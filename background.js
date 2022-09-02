@@ -7,7 +7,7 @@ chrome.runtime.onInstalled.addListener((tab) => {
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (tab.url.indexOf("zhihu.com") > 0) {
-    if (tab.status === "complete") {
+    if (tab.status === "loading") {
       chrome.storage.sync.get("speed", (data) => {
         let myNewUrl = tab.url.split("?")[0] + "?speed=" + data.speed
 
