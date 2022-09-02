@@ -6,13 +6,22 @@ chrome.runtime.onInstalled.addListener((tab) => {
 })
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-  if (tab.url.indexOf("zhihu.com") > 0 && tab.url.indexOf("?speed=") == -1) {
-    // 通知对应的tab页面url变化了,需要优化为离开立即移除，进入则加载完毕再添加
+  if (tab.url.indexOf("zhihu.com") > 0) {
     if (tab.status === "complete") {
       chrome.storage.sync.get("speed", (data) => {
         let myNewUrl = tab.url.split("?")[0] + "?speed=" + data.speed
-        //Update the url here.
-        chrome.tabs.update(tab.id, { url: myNewUrl })
+
+        if (tab.url.indexOf("?speed=") != -1) {
+          var reg = new RegExp("speed=([^&]*)(&|$)")
+          var r = tab.url.match(reg)
+          if (r != null && decodeURI(r[1]) != data.speed) {
+            //Update the url here.
+            chrome.tabs.update(tab.id, { url: myNewUrl })
+          }
+        } else {
+          //Update the url here.
+          chrome.tabs.update(tab.id, { url: myNewUrl })
+        }
       })
     }
   }
