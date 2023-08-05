@@ -39,7 +39,7 @@ function cleanPrint() {
     // 删除顶部状态栏
     delElem("ColumnPageHeader-Wrapper")
     // 删除顶图
-    delElem("TitleImage")
+    delElem("css-78p1r9")
     // 删除关注按钮
     delElem("FollowButton")
     // 删除左侧目录
