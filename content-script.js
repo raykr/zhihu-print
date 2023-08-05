@@ -35,6 +35,7 @@ function load_lazy_and_print() {
 }
 
 function cleanPrint() {
+  // 知乎专栏文章
   if (window.location.href.indexOf("https://zhuanlan.zhihu.com/p") != -1) {
     // 删除顶部状态栏
     delElem("ColumnPageHeader-Wrapper")
@@ -58,6 +59,15 @@ function cleanPrint() {
     delElem("Post-topicsAndReviewer")
     // 删除评论
     delElem("Post-Sub Post-NormalSub")
+  }
+  // 微信公众号文章
+  if (window.location.href.indexOf("https://mp.weixin.qq.com/s") != -1) {
+    // 删除右侧二维码
+    delElem("qr_code_pc")
+    // 删除js_tags
+    delElem("js_tags")
+    // 删除rich_media_area_extra
+    delElem("rich_media_area_extra")
   }
   // 滚动页面，加载图片，打印页面
   load_lazy_and_print()
