@@ -15,6 +15,15 @@ function delElem(className) {
   }
 }
 
+// 按自定义属性名删除元素
+function delElemByAttr(attrName, attrValue) {
+  let elem = document.querySelectorAll("[" + attrName + "='" + attrValue + "']")
+  if (elem[0] != undefined) {
+    let parent = elem[0].parentElement
+    parent.removeChild(elem[0])
+  }
+}
+
 function load_lazy_and_print() {
   // 页面滚动速度（滚过一屏高度所需的时间，时间越短则越快）
   // 如果出现网速慢，滚动过快，导致的懒加载图片不能全部显示完整，则调大该数字尝试
@@ -65,9 +74,20 @@ function cleanPrint() {
     // 删除右侧二维码
     delElem("qr_code_pc")
     // 删除js_tags
-    delElem("js_tags")
+    delElemByAttr("id", "js_tags")
     // 删除rich_media_area_extra
     delElem("rich_media_area_extra")
+    // 常用几个公众号的特殊优化
+    // 图灵人工智能
+    delElemByAttr("data-fileid", "100055113")
+    delElemByAttr("data-fileid", "100055114")
+    delElemByAttr("data-fileid", "100055115")
+    delElem("common_test")
+    // PaperWeekly
+    delElem("__bg_gif")
+    delElemByAttr("powered-by", "xiumi.us")
+    delElemByAttr("data-id", "63")
+    delElemByAttr("data-src", "https://mmbiz.qpic.cn/mmbiz_png/VBcD02jFhgnZ3nlEAOI3MyTd7jqeD6cq8uTbkM2xZNpribyNr9liaPJ722zaHxd0YpQvib2nxOYmWibydCVY7W94ew/640?wx_fmt=jpeg")
   }
   // 滚动页面，加载图片，打印页面
   load_lazy_and_print()
