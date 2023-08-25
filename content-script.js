@@ -6,22 +6,32 @@ function getUrlParam(name) {
   return 100 // 返回参数值
 }
 
-// 定义删除函数
-function delElem(className) {
-  let elem = document.getElementsByClassName(className)
-  if (elem[0] != undefined) {
-    let parent = elem[0].parentElement
-    parent.removeChild(elem[0])
+//循环删除该节点
+function _delElem(elems) {
+  console.log(elems.length)
+  while (elems[0] != undefined) {
+    let parent = elems[0].parentElement
+    parent.removeChild(elems[0])
   }
+  console.log(elems.length)
+}
+
+// 定义删除函数
+function delElemByClassName(className) {
+  let elems = document.getElementsByClassName(className)
+  _delElem(elems)
 }
 
 // 按自定义属性名删除元素
 function delElemByAttr(attrName, attrValue) {
-  let elem = document.querySelectorAll("[" + attrName + "='" + attrValue + "']")
-  if (elem[0] != undefined) {
-    let parent = elem[0].parentElement
-    parent.removeChild(elem[0])
-  }
+  let elems = document.querySelectorAll("[" + attrName + "='" + attrValue + "']")
+  _delElem(elems)
+}
+
+// 删除标签元素
+function delElemByTagName(tagName) {
+  let elems = document.getElementsByTagName(tagName)
+  _delElem(elems)
 }
 
 function load_lazy_and_print() {
@@ -37,6 +47,8 @@ function load_lazy_and_print() {
       lastHeight += clientHeight
     } else {
       clearInterval(task)
+      // 加载完图片后，删除<noscript>标签
+      delElemByTagName("noscript")
       // 打印页面
       window.print()
     }
@@ -47,44 +59,44 @@ function cleanPrint() {
   // 知乎专栏文章
   if (window.location.href.indexOf("https://zhuanlan.zhihu.com/p") != -1) {
     // 删除顶部状态栏
-    delElem("ColumnPageHeader-Wrapper")
+    delElemByClassName("ColumnPageHeader-Wrapper")
     // 删除顶图
-    delElem("css-78p1r9")
+    delElemByClassName("css-78p1r9")
     // 删除关注按钮
-    delElem("FollowButton")
+    delElemByClassName("FollowButton")
     // 删除左侧目录
-    delElem("Catalog")
+    delElemByClassName("Catalog")
     // 删除底部分享
-    delElem("Sticky")
+    delElemByClassName("Sticky")
     // 删除返回顶部
-    delElem("CornerButtons")
+    delElemByClassName("CornerButtons")
     // 删除推荐阅读
-    delElem("Recommendations-Main")
+    delElemByClassName("Recommendations-Main")
     // 删除专栏
-    delElem("PostIndex-Contributions")
+    delElemByClassName("PostIndex-Contributions")
     // 删除赞赏
-    delElem("Reward")
+    delElemByClassName("Reward")
     // 删除话题
-    delElem("Post-topicsAndReviewer")
+    delElemByClassName("Post-topicsAndReviewer")
     // 删除评论
-    delElem("Post-Sub Post-NormalSub")
+    delElemByClassName("Post-Sub Post-NormalSub")
   }
   // 微信公众号文章
   if (window.location.href.indexOf("https://mp.weixin.qq.com/s") != -1) {
     // 删除右侧二维码
-    delElem("qr_code_pc")
+    delElemByClassName("qr_code_pc")
     // 删除js_tags
     delElemByAttr("id", "js_tags")
     // 删除rich_media_area_extra
-    delElem("rich_media_area_extra")
+    delElemByClassName("rich_media_area_extra")
     // 常用几个公众号的特殊优化
     // 图灵人工智能
     delElemByAttr("data-fileid", "100055113")
     delElemByAttr("data-fileid", "100055114")
     delElemByAttr("data-fileid", "100055115")
-    delElem("common_test")
+    delElemByClassName("common_test")
     // PaperWeekly
-    delElem("__bg_gif")
+    delElemByClassName("__bg_gif")
     delElemByAttr("powered-by", "xiumi.us")
     delElemByAttr("data-id", "63")
     delElemByAttr("data-src", "https://mmbiz.qpic.cn/mmbiz_png/VBcD02jFhgnZ3nlEAOI3MyTd7jqeD6cq8uTbkM2xZNpribyNr9liaPJ722zaHxd0YpQvib2nxOYmWibydCVY7W94ew/640?wx_fmt=jpeg")
